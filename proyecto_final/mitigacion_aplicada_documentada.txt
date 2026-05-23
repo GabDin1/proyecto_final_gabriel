@@ -1,0 +1,515 @@
+INICIO MITIGACION COMPLETA
+Sat May 23 12:28:43 PM EDT 2026
+
+=================================================
+1. ESTADO INICIAL
+=================================================
+Se revisan los puertos y servicios activos antes de aplicar de nuevo las mitigaciones.
+
+COMANDO:
+$ ss -tulnp
+
+RESULTADO:
+Netid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                                                                                                                                       
+udp   UNCONN 0      0            0.0.0.0:5353       0.0.0.0:*    users:(("avahi-daemon",pid=506,fd=12))                                                                                                                       
+udp   UNCONN 0      0            0.0.0.0:44274      0.0.0.0:*    users:(("avahi-daemon",pid=506,fd=14))                                                                                                                       
+udp   UNCONN 0      0               [::]:5353          [::]:*    users:(("avahi-daemon",pid=506,fd=13))                                                                                                                       
+udp   UNCONN 0      0               [::]:35418         [::]:*    users:(("avahi-daemon",pid=506,fd=15))                                                                                                                       
+tcp   LISTEN 0      128        127.0.0.1:631        0.0.0.0:*    users:(("cupsd",pid=1026,fd=7))                                                                                                                              
+tcp   LISTEN 0      80         127.0.0.1:3306       0.0.0.0:*    users:(("mariadbd",pid=736,fd=20))                                                                                                                           
+tcp   LISTEN 0      128          0.0.0.0:22         0.0.0.0:*    users:(("sshd",pid=632,fd=3))                                                                                                                                
+tcp   LISTEN 0      128             [::]:22            [::]:*    users:(("sshd",pid=632,fd=4))                                                                                                                                
+tcp   LISTEN 0      511                *:80               *:*    users:(("apache2",pid=888,fd=4),("apache2",pid=887,fd=4),("apache2",pid=884,fd=4),("apache2",pid=883,fd=4),("apache2",pid=882,fd=4),("apache2",pid=712,fd=4))
+tcp   LISTEN 0      128            [::1]:631           [::]:*    users:(("cupsd",pid=1026,fd=6))                                                                                                                              
+
+=================================================
+2. ENDURECIMIENTO DE SSH
+=================================================
+Se deshabilita el acceso remoto como root y la autenticación por contraseña.
+
+COMANDO:
+$ cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak.20260523_122843
+
+RESULTADO:
+
+COMANDO:
+$ sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+
+RESULTADO:
+
+COMANDO:
+$ sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+
+RESULTADO:
+
+COMANDO:
+$ grep -q '^PermitRootLogin' /etc/ssh/sshd_config || echo 'PermitRootLogin no' >> /etc/ssh/sshd_config
+
+RESULTADO:
+
+COMANDO:
+$ grep -q '^PasswordAuthentication' /etc/ssh/sshd_config || echo 'PasswordAuthentication no' >> /etc/ssh/sshd_config
+
+RESULTADO:
+
+COMANDO:
+$ systemctl restart ssh
+
+RESULTADO:
+
+COMANDO:
+$ sshd -T | grep -E 'permitrootlogin|passwordauthentication'
+
+RESULTADO:
+permitrootlogin no
+passwordauthentication no
+
+=================================================
+3. CONFIGURACION SEGURA DE FTP
+=================================================
+Se deshabilita el acceso anonymous en vsftpd.
+
+COMANDO:
+$ cp /etc/vsftpd.conf /etc/vsftpd.conf.bak.20260523_122843
+
+RESULTADO:
+
+COMANDO:
+$ sed -i 's/^#\?anonymous_enable=.*/anonymous_enable=NO/' /etc/vsftpd.conf
+
+RESULTADO:
+
+COMANDO:
+$ grep -q '^anonymous_enable' /etc/vsftpd.conf || echo 'anonymous_enable=NO' >> /etc/vsftpd.conf
+
+RESULTADO:
+
+COMANDO:
+$ grep -E 'anonymous_enable|write_enable|local_enable' /etc/vsftpd.conf
+
+RESULTADO:
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+#anon_mkdir_write_enable=YES
+
+=================================================
+4. CORRECCION DE PERMISOS WORDPRESS
+=================================================
+Se eliminan permisos excesivos y se protege wp-config.php.
+
+COMANDO:
+$ find /var/www/html -type d -exec chmod 755 {} \;
+
+RESULTADO:
+
+COMANDO:
+$ find /var/www/html -type f -exec chmod 644 {} \;
+
+RESULTADO:
+
+COMANDO:
+$ chmod 600 /var/www/html/wp-config.php
+
+RESULTADO:
+
+COMANDO:
+$ stat /var/www/html/wp-config.php
+
+RESULTADO:
+  File: /var/www/html/wp-config.php
+  Size: 3036      	Blocks: 8          IO Block: 4096   regular file
+Device: 8,1	Inode: 176576      Links: 1
+Access: (0600/-rw-------)  Uid: (   33/www-data)   Gid: (   33/www-data)
+Access: 2026-05-20 19:25:09.001072466 -0400
+Modify: 2026-05-20 19:10:51.280869008 -0400
+Change: 2026-05-23 12:28:47.218117288 -0400
+ Birth: 2026-05-20 19:10:51.280869008 -0400
+Conclusión: wp-config.php queda en 0600, accesible solo por el propietario y root.
+
+=================================================
+5. CAMBIO PASSWORD MYSQL/WORDPRESS
+=================================================
+Se sustituye la contraseña débil de WordPress/MariaDB por una robusta.
+
+COMANDO:
+$ mysql -e "ALTER USER 'wordpressuser'@'localhost' IDENTIFIED BY 'WP_20260523122843_Seguro!'; FLUSH PRIVILEGES;"
+
+RESULTADO:
+
+COMANDO:
+$ cp /var/www/html/wp-config.php /var/www/html/wp-config.php.bak.20260523_122847
+
+RESULTADO:
+
+COMANDO:
+$ sed -i "s/define( 'DB_PASSWORD', '.*' );/define( 'DB_PASSWORD', 'WP_20260523122843_Seguro!' );/" /var/www/html/wp-config.php
+
+RESULTADO:
+
+COMANDO:
+$ grep 'DB_PASSWORD' /var/www/html/wp-config.php
+
+RESULTADO:
+define( 'DB_PASSWORD', 'WP_20260523122843_Seguro!' );
+
+=================================================
+6. DESHABILITAR XMLRPC
+=================================================
+Se deshabilita xmlrpc.php para reducir ataques de fuerza bruta y abuso de pingbacks.
+
+COMANDO:
+$ if [ -f /var/www/html/xmlrpc.php ]; then mv /var/www/html/xmlrpc.php /var/www/html/xmlrpc.php.disabled; fi
+
+RESULTADO:
+
+COMANDO:
+$ ls -lah /var/www/html/xmlrpc.php* 2>/dev/null || true
+
+RESULTADO:
+-rw-r--r-- 1 www-data www-data 3.2K Mar  2  2024 /var/www/html/xmlrpc.php.disabled
+
+=================================================
+7. HARDENING APACHE INDEXES
+=================================================
+Se deshabilita el listado automático de directorios en Apache.
+
+COMANDO:
+$ cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.bak.20260523_122847
+
+RESULTADO:
+
+COMANDO:
+$ sed -i 's/Options Indexes FollowSymLinks/Options -Indexes +FollowSymLinks/g' /etc/apache2/apache2.conf
+
+RESULTADO:
+
+COMANDO:
+$ systemctl restart apache2
+
+RESULTADO:
+
+COMANDO:
+$ grep -R 'Options' /etc/apache2 | grep Indexes || true
+
+RESULTADO:
+/etc/apache2/apache2.conf.bak.20260520_185808:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_185808:        Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_185808:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_185808:#	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak:	Options Indexes FollowSymLinks
+/etc/apache2/apache2.conf.bak:        Options Indexes FollowSymLinks
+/etc/apache2/apache2.conf.bak:	Options Indexes FollowSymLinks
+/etc/apache2/apache2.conf.bak:#	Options Indexes FollowSymLinks
+/etc/apache2/mods-available/userdir.conf:	Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+/etc/apache2/apache2.conf.bak.20260520_190827:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_190827:        Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_190827:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_190827:#	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf:        Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf:#	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260523_122847:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260523_122847:        Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260523_122847:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260523_122847:#	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_191051:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_191051:        Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_191051:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_191051:#	Options -Indexes +FollowSymLinks
+Conclusión: Options -Indexes evita que Apache liste archivos internos.
+
+Validación inicial XMLRPC:
+
+$ ls -lah /var/www/html/xmlrpc*
+
+-rw-r--r-- 1 www-data www-data 3.2K May 23 13:23 /var/www/html/xmlrpc.php
+-rw-r--r-- 1 www-data www-data 3.2K Mar  2  2024 /var/www/html/xmlrpc.php.disabled
+
+Durante la validación final del hardening se detectó que el endpoint xmlrpc.php volvió a aparecer activo en el directorio web de WordPress, exponiendo nuevamente funcionalidades asociadas a autenticación remota XML-RPC.
+
+Esto podía permitir:
+- ataques de fuerza bruta
+- abuso de pingbacks
+- enumeración de usuarios
+- automatización de ataques sobre WordPress
+
+Para corregir definitivamente la exposición del endpoint XML-RPC se aplicó una nueva mitigación renombrando el archivo activo.
+
+Comando aplicado:
+
+$ sudo mv /var/www/html/xmlrpc.php /var/www/html/xmlrpc.php.disabled2
+
+Validación final XMLRPC:
+
+$ ls -lah /var/www/html/xmlrpc*
+
+-rw-r--r-- 1 www-data www-data 3.2K Mar  2  2024 /var/www/html/xmlrpc.php.disabled
+-rw-r--r-- 1 www-data www-data 3.2K May 23 13:23 /var/www/html/xmlrpc.php.disabled2
+
+La validación final confirmó que el endpoint xmlrpc.php quedó completamente deshabilitado y fuera de exposición pública, reduciendo la superficie de ataque del entorno WordPress.
+
+=================================================
+8. DESHABILITAR SERVICIOS INNECESARIOS
+=================================================
+Se detienen y deshabilitan servicios no necesarios para un servidor WordPress.
+
+Servicio: avahi-daemon
+
+COMANDO:
+$ systemctl stop avahi-daemon 2>/dev/null || true
+
+RESULTADO:
+
+COMANDO:
+$ systemctl disable avahi-daemon 2>/dev/null || true
+
+RESULTADO:
+
+COMANDO:
+$ systemctl status avahi-daemon --no-pager | head -10 || true
+
+RESULTADO:
+○ avahi-daemon.service - Avahi mDNS/DNS-SD Stack
+     Loaded: loaded (/lib/systemd/system/avahi-daemon.service; disabled; preset: enabled)
+     Active: inactive (dead) since Sat 2026-05-23 12:28:47 EDT; 173ms ago
+   Duration: 1h 6min 8.019s
+TriggeredBy: ● avahi-daemon.socket
+   Main PID: 506 (code=exited, status=0/SUCCESS)
+     Status: "avahi-daemon 0.8 starting up."
+        CPU: 56ms
+
+May 23 11:22:40 debian avahi-daemon[506]: Server startup complete. Host name is debian.local. Local service cookie is 3049530192.
+
+Servicio: cups
+
+COMANDO:
+$ systemctl stop cups 2>/dev/null || true
+
+RESULTADO:
+
+COMANDO:
+$ systemctl disable cups 2>/dev/null || true
+
+RESULTADO:
+
+COMANDO:
+$ systemctl status cups --no-pager | head -10 || true
+
+RESULTADO:
+○ cups.service - CUPS Scheduler
+     Loaded: loaded (/lib/systemd/system/cups.service; disabled; preset: enabled)
+     Active: inactive (dead) since Sat 2026-05-23 12:28:47 EDT; 581ms ago
+   Duration: 1h 6min 7.144s
+TriggeredBy: ○ cups.socket
+       Docs: man:cupsd(8)
+   Main PID: 1026 (code=exited, status=0/SUCCESS)
+     Status: "Scheduler is running..."
+        CPU: 11ms
+
+
+Servicio: exim4
+
+COMANDO:
+$ systemctl stop exim4 2>/dev/null || true
+
+RESULTADO:
+
+COMANDO:
+$ systemctl disable exim4 2>/dev/null || true
+
+RESULTADO:
+
+COMANDO:
+$ systemctl status exim4 --no-pager | head -10 || true
+
+RESULTADO:
+○ exim4.service - LSB: exim Mail Transport Agent
+     Loaded: loaded (/etc/init.d/exim4; generated)
+     Active: inactive (dead)
+       Docs: man:systemd-sysv-generator(8)
+
+=================================================
+9. DESHABILITAR FTP COMPLETAMENTE
+=================================================
+Se apaga vsftpd para cerrar el puerto 21 y eliminar la superficie FTP.
+
+COMANDO:
+$ systemctl stop vsftpd 2>/dev/null || true
+
+RESULTADO:
+
+COMANDO:
+$ systemctl disable vsftpd 2>/dev/null || true
+
+RESULTADO:
+
+COMANDO:
+$ systemctl status vsftpd --no-pager | head -10 || true
+
+RESULTADO:
+○ vsftpd.service - vsftpd FTP server
+     Loaded: loaded (/lib/systemd/system/vsftpd.service; disabled; preset: enabled)
+     Active: inactive (dead)
+
+COMANDO:
+$ nc -zv localhost 21 || true
+
+RESULTADO:
+localhost [127.0.0.1] 21 (ftp) : Connection refused
+
+=================================================
+10. VALIDACION SFTP
+=================================================
+Se confirma SFTP como alternativa segura a FTP usando OpenSSH.
+
+COMANDO:
+$ sshd -T | grep sftp
+
+RESULTADO:
+subsystem sftp /usr/lib/openssh/sftp-server
+
+=================================================
+11. ESTADO FINAL DE PUERTOS
+=================================================
+Se valida que solo quedan activos los servicios necesarios.
+
+COMANDO:
+$ ss -tulnp
+
+RESULTADO:
+Netid State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                            
+tcp   LISTEN 0      80         127.0.0.1:3306      0.0.0.0:*    users:(("mariadbd",pid=736,fd=20))
+tcp   LISTEN 0      128          0.0.0.0:22        0.0.0.0:*    users:(("sshd",pid=4616,fd=3))    
+tcp   LISTEN 0      128             [::]:22           [::]:*    users:(("sshd",pid=4616,fd=4))    
+tcp   LISTEN 0      511                *:80              *:*    users:(("apache2",pid=7986,fd=4),("apache2",pid=7985,fd=4),("apache2",pid=7984,fd=4),("apache2",pid=7983,fd=4),("apache2",pid=7982,fd=4),("apache2",pid=7979,fd=4))
+
+=================================================
+12. VALIDACIONES FINALES
+=================================================
+Validación SSH:
+
+COMANDO:
+$ sshd -T | grep -E 'permitrootlogin|passwordauthentication'
+
+RESULTADO:
+permitrootlogin no
+passwordauthentication no
+Validación FTP:
+
+COMANDO:
+$ nc -zv localhost 21 || true
+
+RESULTADO:
+localhost [127.0.0.1] 21 (ftp) : Connection refused
+Validación Avahi:
+
+COMANDO:
+$ ss -tulnp | grep 5353 || echo 'Puerto 5353 cerrado'
+
+RESULTADO:
+Puerto 5353 cerrado
+Validación CUPS:
+
+COMANDO:
+$ ss -tulnp | grep 631 || echo 'Puerto 631 cerrado'
+
+RESULTADO:
+Puerto 631 cerrado
+Validación Exim:
+
+COMANDO:
+$ ss -tulnp | grep ':25' || echo 'Puerto 25 cerrado'
+
+RESULTADO:
+Puerto 25 cerrado
+Validación wp-config.php:
+
+COMANDO:
+$ stat /var/www/html/wp-config.php
+
+RESULTADO:
+  File: /var/www/html/wp-config.php
+  Size: 3036      	Blocks: 8          IO Block: 4096   regular file
+Device: 8,1	Inode: 176579      Links: 1
+Access: (0600/-rw-------)  Uid: (   33/www-data)   Gid: (   33/www-data)
+Access: 2026-05-23 12:28:47.250117606 -0400
+Modify: 2026-05-23 12:28:47.246117566 -0400
+Change: 2026-05-23 12:28:47.246117566 -0400
+ Birth: 2026-05-23 12:28:47.246117566 -0400
+
+================ 13. VALIDACION DE PERSISTENCIA TRAS REINICIO ================
+
+Tras reiniciar la máquina virtual se realizó una nueva comprobación de puertos y servicios activos para verificar que las mitigaciones aplicadas persistieran correctamente tras el arranque del sistema.
+
+Inicialmente se detectó que algunos servicios previamente deshabilitados continuaban activos tras el reinicio del sistema, concretamente avahi-daemon y cups, exponiendo nuevamente los puertos 5353/UDP y 631/TCP.
+
+Comprobación inicial tras reinicio:
+
+$ sudo ss -tulnp
+
+udp     UNCONN   0   0   0.0.0.0:5353
+tcp     LISTEN   0   128 127.0.0.1:631
+
+Esto indicó que aunque los servicios habían sido deshabilitados mediante systemctl disable, algunos componentes seguían iniciándose automáticamente mediante sockets de systemd.
+
+Para corregir definitivamente el problema se aplicaron medidas adicionales de hardening utilizando stop y mask sobre los servicios y sockets asociados.
+
+Comandos aplicados:
+
+$ sudo systemctl stop avahi-daemon
+$ sudo systemctl stop avahi-daemon.socket
+$ sudo systemctl mask avahi-daemon
+$ sudo systemctl mask avahi-daemon.socket
+
+$ sudo systemctl stop cups
+$ sudo systemctl stop cups.socket
+$ sudo systemctl mask cups
+$ sudo systemctl mask cups.socket
+
+Posteriormente se verificó nuevamente el estado de los servicios y puertos expuestos.
+
+Comprobación final:
+
+$ sudo ss -tulnp
+
+Netid   State    Recv-Q   Send-Q     Local Address:Port
+tcp     LISTEN   0        128              0.0.0.0:22
+tcp     LISTEN   0        80             127.0.0.1:3306
+tcp     LISTEN   0        511                    *:80
+
+La validación final confirmó que los puertos 21, 25, 5353 y 631 quedaron correctamente cerrados y que las mitigaciones persistieron tras reiniciar la máquina virtual.
+
+Se comprobó además que únicamente permanecieran activos los servicios estrictamente necesarios para el funcionamiento del servidor:
+- Apache
+- SSH endurecido
+- MariaDB restringido a localhost
+
+Esto confirma la correcta aplicación del hardening y la reducción efectiva de la superficie de ataque del sistema.
+
+================ VALIDACION FINAL DEL SERVICIO WEB ================
+
+Tras aplicar las medidas de hardening y mitigación sobre el servidor Debian, se realizó una validación final del servicio web para confirmar que las medidas de seguridad no afectaron la disponibilidad ni el funcionamiento del entorno WordPress.
+
+Inicialmente el servidor mostraba la página por defecto de Apache debido a la presencia del archivo index.html en el directorio web principal, el cual tenía prioridad sobre index.php.
+
+Para restaurar correctamente la carga del entorno WordPress se aplicó la siguiente corrección:
+
+$ sudo mv /var/www/html/index.html /var/www/html/index.html.bak
+$ sudo systemctl restart apache2
+
+Posteriormente se verificó desde la máquina host el acceso HTTP al servidor mediante la dirección IP:
+
+http://192.168.31.188
+
+La validación confirmó:
+- funcionamiento correcto de Apache
+- carga correcta del entorno WordPress
+- disponibilidad del servicio web tras el hardening
+- conectividad operativa entre host y máquina virtual
+
+Esto demuestra que las medidas de seguridad aplicadas no comprometieron la continuidad operativa del servicio web.
+
+FIN MITIGACION COMPLETA
+Sat May 23 12:28:49 PM EDT 2026

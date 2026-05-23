@@ -1,0 +1,120 @@
+debian@debian:~$ echo "================ PUERTOS ACTIVOS ================"
+sudo ss -tulnp
+
+echo
+echo "================ SSH HARDENING ================"
+sudo sshd -T | grep -E "permitrootlogin|passwordauthentication"
+
+echo
+echo "================ FTP DESHABILITADO ================"
+systemctl status vsftpd --no-pager | head -10
+
+echo
+echo "================ AVAHI DESHABILITADO ================"
+systemctl status avahi-daemon --no-pager | head -10
+
+echo
+echo "================ CUPS DESHABILITADO ================"
+systemctl status cups --no-pager | head -10
+
+echo
+echo "================ EXIM4 DESHABILITADO ================"
+systemctl status exim4 --no-pager | head -10
+
+echo
+echo "================ WP-CONFIG PERMISOS ================"
+stat /var/www/html/wp-config.php
+
+echo
+echo "================ PASSWORD WORDPRESS ================"
+grep "DB_PASSWORD" /var/www/html/wp-config.php
+
+echo
+echo "================ XMLRPC DESHABILITADO ================"
+nc -zvu localhost 5353 || trueION PUERTO 5353 ================"="
+================ PUERTOS ACTIVOS ================
+Netid           State            Recv-Q           Send-Q                     Local Address:Port                     Peer Address:Port           Process                                       
+tcp             LISTEN           0                128                              0.0.0.0:22                            0.0.0.0:*               users:(("sshd",pid=590,fd=3))                
+tcp             LISTEN           0                80                             127.0.0.1:3306                          0.0.0.0:*               users:(("mariadbd",pid=701,fd=23))           
+tcp             LISTEN           0                128                                 [::]:22                               [::]:*               users:(("sshd",pid=590,fd=4))                
+tcp             LISTEN           0                511                                    *:80                                  *:*               users:(("apache2",pid=738,fd=4),("apache2",pid=737,fd=4),("apache2",pid=736,fd=4),("apache2",pid=735,fd=4),("apache2",pid=734,fd=4),("apache2",pid=684,fd=4))
+
+================ SSH HARDENING ================
+permitrootlogin no
+passwordauthentication no
+
+================ FTP DESHABILITADO ================
+○ vsftpd.service - vsftpd FTP server
+     Loaded: loaded (/lib/systemd/system/vsftpd.service; disabled; preset: enabled)
+     Active: inactive (dead)
+
+================ AVAHI DESHABILITADO ================
+○ avahi-daemon.service
+     Loaded: masked (Reason: Unit avahi-daemon.service is masked.)
+     Active: inactive (dead)
+
+================ CUPS DESHABILITADO ================
+○ cups.service
+     Loaded: masked (Reason: Unit cups.service is masked.)
+     Active: inactive (dead)
+
+================ EXIM4 DESHABILITADO ================
+○ exim4.service - LSB: exim Mail Transport Agent
+     Loaded: loaded (/etc/init.d/exim4; generated)
+     Active: inactive (dead)
+       Docs: man:systemd-sysv-generator(8)
+
+================ WP-CONFIG PERMISOS ================
+  File: /var/www/html/wp-config.php
+  Size: 3036      	Blocks: 8          IO Block: 4096   regular file
+Device: 8,1	Inode: 176579      Links: 1
+Access: (0600/-rw-------)  Uid: (   33/www-data)   Gid: (   33/www-data)
+Access: 2026-05-23 12:28:47.250117606 -0400
+Modify: 2026-05-23 12:28:47.246117566 -0400
+Change: 2026-05-23 12:28:47.246117566 -0400
+ Birth: 2026-05-23 12:28:47.246117566 -0400
+
+================ PASSWORD WORDPRESS ================
+grep: /var/www/html/wp-config.php: Permission denied
+
+================ XMLRPC DESHABILITADO ================
+-rw-r--r-- 1 www-data www-data 3.2K Mar  2  2024 /var/www/html/xmlrpc.php.disabled
+
+================ APACHE INDEXES ================
+/etc/apache2/apache2.conf.bak.20260520_185808:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_185808:        Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_185808:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_185808:#	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak:	Options Indexes FollowSymLinks
+/etc/apache2/apache2.conf.bak:        Options Indexes FollowSymLinks
+/etc/apache2/apache2.conf.bak:	Options Indexes FollowSymLinks
+/etc/apache2/apache2.conf.bak:#	Options Indexes FollowSymLinks
+/etc/apache2/mods-available/userdir.conf:	Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+/etc/apache2/apache2.conf.bak.20260520_190827:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_190827:        Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_190827:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_190827:#	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf:        Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf:#	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260523_122847:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260523_122847:        Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260523_122847:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260523_122847:#	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_191051:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_191051:        Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_191051:	Options -Indexes +FollowSymLinks
+/etc/apache2/apache2.conf.bak.20260520_191051:#	Options -Indexes +FollowSymLinks
+
+================ VALIDACION FTP PUERTO 21 ================
+localhost [127.0.0.1] 21 (ftp) : Connection refused
+
+================ VALIDACION PUERTO 25 ================
+localhost [127.0.0.1] 25 (smtp) : Connection refused
+
+================ VALIDACION PUERTO 631 ================
+localhost [127.0.0.1] 631 (ipp) : Connection refused
+
+================ VALIDACION PUERTO 5353 ================
+localhost [127.0.0.1] 5353 (mdns) : Connection refused

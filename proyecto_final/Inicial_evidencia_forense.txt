@@ -1,0 +1,935 @@
+=================================================
+INICIO ANALISIS FORENSE
+=================================================
+Wed May 20 06:24:43 PM EDT 2026
+
+================ USUARIOS =================
+38
+debian
+
+================ LOGIN USUARIOS =================
+debian   tty7         :0               Wed May 20 13:36   still logged in
+reboot   system boot  6.1.0-25-amd64   Wed May 20 13:35   still running
+debian   tty7         :0               Wed May 20 13:22 - 13:35  (00:13)
+reboot   system boot  6.1.0-25-amd64   Wed May 20 13:21 - 13:35  (00:13)
+debian   tty7         :0               Tue Oct  8 17:28 - crash (588+19:53)
+reboot   system boot  6.1.0-25-amd64   Tue Oct  8 17:28 - 13:35 (588+20:07)
+debian   tty7         :0               Tue Oct  8 16:48 - crash  (00:40)
+reboot   system boot  6.1.0-25-amd64   Tue Oct  8 16:48 - 13:35 (588+20:47)
+debian   tty7         :0               Tue Oct  8 16:44 - crash  (00:03)
+reboot   system boot  6.1.0-25-amd64   Tue Oct  8 16:43 - 13:35 (588+20:52)
+debian   tty7         :0               Mon Sep 30 15:13 - crash (8+01:29)
+reboot   system boot  6.1.0-25-amd64   Mon Sep 30 15:09 - 13:35 (596+22:25)
+debian   tty7         :0               Mon Sep 30 09:49 - 12:27  (02:38)
+reboot   system boot  6.1.0-23-amd64   Mon Sep 30 09:48 - 12:28  (02:39)
+debian   tty7         :0               Sat Sep 28 16:40 - crash (1+17:08)
+reboot   system boot  6.1.0-23-amd64   Sat Sep 28 16:39 - 12:28 (1+19:48)
+debian   tty7         :0               Wed Jul 31 16:45 - 18:18  (01:33)
+reboot   system boot  6.1.0-23-amd64   Wed Jul 31 16:45 - 18:19  (01:34)
+debian   tty7         :0               Wed Jul 31 16:04 - 16:44  (00:39)
+reboot   system boot  6.1.0-23-amd64   Wed Jul 31 16:04 - 16:44  (00:40)
+
+================ SERVICIOS ABIERTOS =================
+Netid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                                                                                                                                       
+udp   UNCONN 0      0            0.0.0.0:5353       0.0.0.0:*    users:(("avahi-daemon",pid=506,fd=12))                                                                                                                       
+udp   UNCONN 0      0            0.0.0.0:44331      0.0.0.0:*    users:(("avahi-daemon",pid=506,fd=14))                                                                                                                       
+udp   UNCONN 0      0               [::]:51299         [::]:*    users:(("avahi-daemon",pid=506,fd=15))                                                                                                                       
+udp   UNCONN 0      0               [::]:5353          [::]:*    users:(("avahi-daemon",pid=506,fd=13))                                                                                                                       
+tcp   LISTEN 0      128          0.0.0.0:22         0.0.0.0:*    users:(("sshd",pid=596,fd=3))                                                                                                                                
+tcp   LISTEN 0      128        127.0.0.1:631        0.0.0.0:*    users:(("cupsd",pid=563,fd=7))                                                                                                                               
+tcp   LISTEN 0      80         127.0.0.1:3306       0.0.0.0:*    users:(("mariadbd",pid=708,fd=22))                                                                                                                           
+tcp   LISTEN 0      20         127.0.0.1:25         0.0.0.0:*    users:(("exim4",pid=10114,fd=4))                                                                                                                             
+tcp   LISTEN 0      128             [::]:22            [::]:*    users:(("sshd",pid=596,fd=4))                                                                                                                                
+tcp   LISTEN 0      32                 *:21               *:*    users:(("vsftpd",pid=572,fd=3))                                                                                                                              
+tcp   LISTEN 0      511                *:80               *:*    users:(("apache2",pid=752,fd=4),("apache2",pid=751,fd=4),("apache2",pid=750,fd=4),("apache2",pid=749,fd=4),("apache2",pid=748,fd=4),("apache2",pid=728,fd=4))
+tcp   LISTEN 0      20             [::1]:25            [::]:*    users:(("exim4",pid=10114,fd=5))                                                                                                                             
+tcp   LISTEN 0      128            [::1]:631           [::]:*    users:(("cupsd",pid=563,fd=6))                                                                                                                               
+
+================ SSH CONFIG =================
+PermitRootLogin yes
+PasswordAuthentication yes
+# PasswordAuthentication.  Depending on your PAM configuration,
+# the setting of "PermitRootLogin prohibit-password".
+# PAM authentication, then enable this but set PasswordAuthentication
+
+================ LOGIN ROOT SSH =================
+Oct 08 17:40:59 debian sshd[1650]: Accepted password for root from 192.168.0.134 port 45623 ssh2
+Oct 08 17:40:59 debian sshd[1650]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+
+================ SUDO LOGS IMPORTANTES =================
+Jul 31 15:57:17 debian systemd[613]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 15:57:17 debian systemd[613]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Jul 31 15:57:30 debian systemd[768]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 15:57:30 debian systemd[768]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Jul 31 15:59:10 debian systemd[613]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 15:59:10 debian systemd[613]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Jul 31 15:59:29 debian systemd[768]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 15:59:29 debian systemd[768]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Jul 31 16:04:31 debian systemd[613]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 16:04:31 debian systemd[613]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Jul 31 16:04:53 debian systemd[751]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 16:04:53 debian systemd[751]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Jul 31 16:05:04 debian systemd[613]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 16:05:04 debian systemd[613]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Jul 31 16:19:16 debian sudo[1684]:   debian : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/sbin/visudo
+Jul 31 16:22:10 debian sudo[1720]:     root : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/sbin/visudo
+Jul 31 16:39:49 debian sudo[2676]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/nano /etc/modprobe.d/blacklist-speakup.conf
+Jul 31 16:42:17 debian sudo[2759]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/nano /etc/default/grub
+Jul 31 16:44:36 debian systemd[751]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 16:44:36 debian systemd[751]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Jul 31 16:45:15 debian systemd[610]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 16:45:15 debian systemd[610]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Jul 31 16:45:41 debian systemd[782]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 16:45:41 debian systemd[782]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Jul 31 16:46:01 debian systemd[610]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 16:46:01 debian systemd[610]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Jul 31 16:50:33 debian sudo[1633]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/nano /etc/modprobe.d/blacklist-speakup.conf
+Jul 31 18:19:01 debian systemd[782]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Jul 31 18:19:01 debian systemd[782]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 28 16:39:47 debian systemd[602]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Sep 28 16:39:47 debian systemd[602]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 28 16:40:16 debian systemd[773]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Sep 28 16:40:16 debian systemd[773]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 28 16:40:36 debian systemd[602]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Sep 28 16:40:36 debian systemd[602]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 30 09:48:41 debian systemd[604]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Sep 30 09:48:41 debian systemd[604]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 30 09:49:00 debian systemd[771]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Sep 30 09:49:00 debian systemd[771]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 30 09:49:23 debian systemd[604]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Sep 30 09:49:23 debian systemd[604]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 30 10:43:49 debian sudo[35502]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/apt install apache2 -y
+Sep 30 10:44:29 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Sep 30 10:44:30 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Sep 30 10:45:53 debian sudo[36075]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/systemctl enable apache2
+Sep 30 10:47:53 debian sudo[36152]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/systemctl start apache2
+Sep 30 10:48:01 debian sudo[36172]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/systemctl status apache2
+Sep 30 11:58:23 debian sudo[38598]:   debian : TTY=pts/0 ; PWD=/tmp ; USER=root ; COMMAND=/usr/bin/chmod -R 755 /var/www/html/
+Sep 30 12:00:08 debian sudo[38693]:   debian : TTY=pts/0 ; PWD=/var/www/html ; USER=root ; COMMAND=/usr/bin/nano wp-config.php
+Sep 30 12:05:46 debian sudo[39731]:   debian : TTY=pts/0 ; PWD=/var/www/html ; USER=root ; COMMAND=/usr/bin/systemctl restart apache2
+Sep 30 12:05:46 debian systemd[1]: Stopping apache2.service - The Apache HTTP Server...
+Sep 30 12:05:46 debian systemd[1]: apache2.service: Deactivated successfully.
+Sep 30 12:05:46 debian systemd[1]: Stopped apache2.service - The Apache HTTP Server.
+Sep 30 12:05:46 debian systemd[1]: apache2.service: Consumed 1.584s CPU time.
+Sep 30 12:05:46 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Sep 30 12:05:46 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Sep 30 12:06:00 debian sudo[39831]:   debian : TTY=pts/0 ; PWD=/var/www/html ; USER=root ; COMMAND=/usr/bin/systemctl status apache2
+Sep 30 12:11:37 debian sudo[40186]:   debian : TTY=pts/0 ; PWD=/var/www/html ; USER=root ; COMMAND=/usr/bin/apt install php libapache2-mod-php php-mysqli php-gd php-xml php-mbstring php-curl -y
+Sep 30 12:12:43 debian php8.2-common[40685]: php_invoke calendar: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:12:44 debian php8.2-common[40921]: php_invoke ctype: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:12:46 debian php8.2-common[41157]: php_invoke exif: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:12:48 debian php8.2-common[41393]: php_invoke fileinfo: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:12:49 debian php8.2-common[41629]: php_invoke ffi: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:12:51 debian php8.2-common[41865]: php_invoke ftp: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:12:53 debian php8.2-common[42101]: php_invoke gettext: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:12:54 debian php8.2-common[42337]: php_invoke iconv: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:12:56 debian php8.2-common[42573]: php_invoke pdo: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:12:58 debian php8.2-common[42809]: php_invoke phar: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:00 debian php8.2-common[43045]: php_invoke posix: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:02 debian php8.2-common[43281]: php_invoke shmop: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:03 debian php8.2-common[43517]: php_invoke sockets: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:05 debian php8.2-common[43753]: php_invoke sysvmsg: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:07 debian php8.2-common[43989]: php_invoke sysvsem: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:08 debian php8.2-common[44225]: php_invoke sysvshm: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:10 debian php8.2-common[44461]: php_invoke tokenizer: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:18 debian php8.2-mysql[44698]: php_invoke mysqlnd: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:23 debian php8.2-mysql[44935]: php_invoke mysqli: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:31 debian php8.2-mysql[45171]: php_invoke pdo_mysql: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:36 debian php8.2-opcache[45408]: php_invoke opcache: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:42 debian php8.2-readline[45649]: php_invoke readline: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:47 debian php8.2-curl[45889]: php_invoke curl: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:52 debian php8.2-xml[46126]: php_invoke dom: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:55 debian php8.2-xml[46363]: php_invoke simplexml: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:13:58 debian php8.2-xml[46600]: php_invoke xml: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:06 debian php8.2-xml[46836]: php_invoke xmlreader: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:11 debian php8.2-xml[47072]: php_invoke xmlwriter: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:14 debian php8.2-xml[47308]: php_invoke xsl: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:17 debian php8.2-gd[47546]: php_invoke gd: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:23 debian php8.2-mbstring[48890]: php_invoke mbstring: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:24 debian libapache2-mod-php8.2[49070]: php_invoke readline: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:24 debian libapache2-mod-php8.2[49103]: php_invoke pdo_mysql: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:24 debian libapache2-mod-php8.2[49136]: php_invoke shmop: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:24 debian libapache2-mod-php8.2[49169]: php_invoke exif: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:24 debian libapache2-mod-php8.2[49202]: php_invoke iconv: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:24 debian libapache2-mod-php8.2[49235]: php_invoke xmlwriter: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:24 debian libapache2-mod-php8.2[49268]: php_invoke mysqlnd: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:24 debian libapache2-mod-php8.2[49301]: php_invoke xml: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:24 debian libapache2-mod-php8.2[49334]: php_invoke mysqli: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:24 debian libapache2-mod-php8.2[49367]: php_invoke fileinfo: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49400]: php_invoke posix: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49433]: php_invoke phar: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49466]: php_invoke xsl: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49499]: php_invoke mbstring: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49532]: php_invoke dom: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49565]: php_invoke sysvshm: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49598]: php_invoke pdo: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49631]: php_invoke gettext: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49664]: php_invoke calendar: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49697]: php_invoke xmlreader: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49730]: php_invoke simplexml: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:25 debian libapache2-mod-php8.2[49763]: php_invoke tokenizer: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:26 debian libapache2-mod-php8.2[49796]: php_invoke gd: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:26 debian libapache2-mod-php8.2[49829]: php_invoke sysvmsg: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:26 debian libapache2-mod-php8.2[49862]: php_invoke ftp: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:26 debian libapache2-mod-php8.2[49895]: php_invoke opcache: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:26 debian libapache2-mod-php8.2[49928]: php_invoke sysvsem: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:26 debian libapache2-mod-php8.2[49961]: php_invoke ctype: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:26 debian libapache2-mod-php8.2[49994]: php_invoke curl: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:26 debian libapache2-mod-php8.2[50027]: php_invoke ffi: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:26 debian libapache2-mod-php8.2[50060]: php_invoke sockets: already enabled for PHP 8.2 apache2 sapi
+Sep 30 12:14:27 debian libapache2-mod-php8.2[50110]: apache2_switch_mpm Switch to prefork
+Sep 30 12:14:27 debian systemd[1]: Stopping apache2.service - The Apache HTTP Server...
+Sep 30 12:14:27 debian systemd[1]: apache2.service: Deactivated successfully.
+Sep 30 12:14:27 debian systemd[1]: Stopped apache2.service - The Apache HTTP Server.
+Sep 30 12:14:27 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Sep 30 12:14:27 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Sep 30 12:14:28 debian libapache2-mod-php8.2[50156]: apache2_invoke: Enable module php8.2
+Sep 30 12:14:28 debian systemd[1]: Stopping apache2.service - The Apache HTTP Server...
+Sep 30 12:14:28 debian systemd[1]: apache2.service: Deactivated successfully.
+Sep 30 12:14:28 debian systemd[1]: Stopped apache2.service - The Apache HTTP Server.
+Sep 30 12:14:28 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Sep 30 12:14:28 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Sep 30 12:15:25 debian sudo[50261]:   debian : TTY=pts/0 ; PWD=/ ; USER=root ; COMMAND=/usr/bin/nano /etc/apache2/sites-available/000-default.conf
+Sep 30 12:18:19 debian sudo[50495]:   debian : TTY=pts/0 ; PWD=/ ; USER=root ; COMMAND=/usr/bin/nano /etc/apache2/sites-available/000-default.conf
+Sep 30 12:19:00 debian sudo[50603]:   debian : TTY=pts/0 ; PWD=/ ; USER=root ; COMMAND=/usr/bin/systemctl restart apache2
+Sep 30 12:19:00 debian systemd[1]: Stopping apache2.service - The Apache HTTP Server...
+Sep 30 12:19:00 debian systemd[1]: apache2.service: Deactivated successfully.
+Sep 30 12:19:00 debian systemd[1]: Stopped apache2.service - The Apache HTTP Server.
+Sep 30 12:19:01 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Sep 30 12:19:01 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Sep 30 12:19:23 debian sudo[50659]:   debian : TTY=pts/0 ; PWD=/ ; USER=root ; COMMAND=/usr/bin/nano /var/www/html/info.php
+Sep 30 12:25:03 debian sudo[51170]:   debian : TTY=pts/0 ; PWD=/ ; USER=root ; COMMAND=/usr/bin/apt install openssh-server -y
+Sep 30 12:25:14 debian useradd[51360]: new user: name=sshd, UID=112, GID=65534, home=/run/sshd, shell=/usr/sbin/nologin, from=none
+Sep 30 12:25:16 debian systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Sep 30 12:25:16 debian sshd[51422]: Server listening on 0.0.0.0 port 22.
+Sep 30 12:25:16 debian sshd[51422]: Server listening on :: port 22.
+Sep 30 12:25:16 debian systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+Sep 30 12:26:19 debian sudo[51493]:   debian : TTY=pts/0 ; PWD=/ ; USER=root ; COMMAND=/usr/bin/systemctl start ssh
+Sep 30 12:26:29 debian sudo[51518]:   debian : TTY=pts/0 ; PWD=/ ; USER=root ; COMMAND=/usr/bin/systemctl enable ssh
+Sep 30 12:26:45 debian sudo[51577]:   debian : TTY=pts/0 ; PWD=/ ; USER=root ; COMMAND=/usr/bin/systemctl status ssh
+Sep 30 12:27:50 debian systemd[1]: Stopping ssh.service - OpenBSD Secure Shell server...
+Sep 30 12:27:50 debian sshd[51422]: Received signal 15; terminating.
+Sep 30 12:27:50 debian systemd[1]: ssh.service: Deactivated successfully.
+Sep 30 12:27:50 debian systemd[1]: Stopped ssh.service - OpenBSD Secure Shell server.
+Sep 30 12:27:50 debian systemd[1]: Stopping apache2.service - The Apache HTTP Server...
+Sep 30 12:27:51 debian systemd[1]: apache2.service: Killing process 50619 (apache2) with signal SIGKILL.
+Sep 30 12:27:51 debian systemd[1]: apache2.service: Deactivated successfully.
+Sep 30 12:27:51 debian systemd[1]: Stopped apache2.service - The Apache HTTP Server.
+Sep 30 12:27:51 debian systemd[1]: apache2.service: Consumed 4.235s CPU time.
+Sep 30 12:28:07 debian systemd[771]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Sep 30 12:28:07 debian systemd[771]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 30 15:09:51 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Sep 30 15:09:51 debian systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Sep 30 15:09:51 debian sshd[560]: Server listening on 0.0.0.0 port 22.
+Sep 30 15:09:51 debian systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+Sep 30 15:09:51 debian sshd[560]: Server listening on :: port 22.
+Sep 30 15:09:52 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Sep 30 15:09:54 debian systemd[747]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Sep 30 15:09:54 debian systemd[747]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 30 15:13:28 debian systemd[1063]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Sep 30 15:13:28 debian systemd[1063]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 30 15:15:08 debian systemd[747]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Sep 30 15:15:08 debian systemd[747]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 30 15:15:12 debian sudo[1702]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/systemctl start apache2
+Sep 30 15:29:07 debian sudo[2866]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/apt install apache2 mysql-server php php-mysql libapache2-mod-php
+Sep 30 15:30:52 debian sudo[3030]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/systemctl restart apache2
+Sep 30 15:30:52 debian systemd[1]: Stopping apache2.service - The Apache HTTP Server...
+Sep 30 15:30:52 debian systemd[1]: apache2.service: Deactivated successfully.
+Sep 30 15:30:52 debian systemd[1]: Stopped apache2.service - The Apache HTTP Server.
+Sep 30 15:30:52 debian systemd[1]: apache2.service: Consumed 1.980s CPU time.
+Sep 30 15:30:52 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Sep 30 15:30:52 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Sep 30 15:31:45 debian sudo[3128]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/nano /etc/apache2/sites-available/000-default.conf
+Sep 30 15:32:42 debian sudo[3173]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/systemctl restart apache2
+Sep 30 15:32:42 debian systemd[1]: Stopping apache2.service - The Apache HTTP Server...
+Sep 30 15:32:42 debian systemd[1]: apache2.service: Deactivated successfully.
+Sep 30 15:32:42 debian systemd[1]: Stopped apache2.service - The Apache HTTP Server.
+Sep 30 15:32:42 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Sep 30 15:32:42 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Oct 08 16:08:57 debian sudo[4687]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/apt install vsftpd
+Oct 08 16:09:01 debian systemd[1]: Starting vsftpd.service - vsftpd FTP server...
+Oct 08 16:09:01 debian systemd[1]: Started vsftpd.service - vsftpd FTP server.
+Oct 08 16:09:38 debian sudo[4886]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/nano /etc/vsftpd.conf
+Oct 08 16:10:37 debian sudo[5045]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/systemctl restart vsftpd
+Oct 08 16:10:37 debian systemd[1]: Stopping vsftpd.service - vsftpd FTP server...
+Oct 08 16:10:37 debian systemd[1]: vsftpd.service: Deactivated successfully.
+Oct 08 16:10:37 debian systemd[1]: Stopped vsftpd.service - vsftpd FTP server.
+Oct 08 16:10:37 debian systemd[1]: Starting vsftpd.service - vsftpd FTP server...
+Oct 08 16:10:37 debian systemd[1]: Started vsftpd.service - vsftpd FTP server.
+Oct 08 16:12:13 debian sudo[5104]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/apt install openssh-server
+Oct 08 16:12:55 debian sudo[5157]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/nano /etc/ssh/sshd_config
+Oct 08 16:14:16 debian sudo[5335]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/systemctl restart ssh
+Oct 08 16:14:16 debian systemd[1]: Stopping ssh.service - OpenBSD Secure Shell server...
+Oct 08 16:14:16 debian sshd[560]: Received signal 15; terminating.
+Oct 08 16:14:16 debian systemd[1]: ssh.service: Deactivated successfully.
+Oct 08 16:14:16 debian systemd[1]: Stopped ssh.service - OpenBSD Secure Shell server.
+Oct 08 16:14:16 debian systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Oct 08 16:14:16 debian sshd[5341]: Server listening on 0.0.0.0 port 22.
+Oct 08 16:14:16 debian sshd[5341]: Server listening on :: port 22.
+Oct 08 16:14:16 debian systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+Oct 08 16:17:59 debian sudo[5532]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/chmod -R 777 /var/www/html
+Oct 08 16:20:04 debian sudo[5592]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/chmod 777 /var/www/html/wp-config.php
+Oct 08 16:21:23 debian sudo[5646]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/nano /etc/apache2/apache2.conf
+Oct 08 16:24:30 debian sudo[5975]:   debian : TTY=pts/1 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/systemctl restart apache2
+Oct 08 16:24:30 debian systemd[1]: Stopping apache2.service - The Apache HTTP Server...
+Oct 08 16:24:31 debian systemd[1]: apache2.service: Deactivated successfully.
+Oct 08 16:24:31 debian systemd[1]: Stopped apache2.service - The Apache HTTP Server.
+Oct 08 16:24:31 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Oct 08 16:24:31 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Oct 08 16:43:18 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Oct 08 16:43:18 debian systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Oct 08 16:43:18 debian systemd[1]: Starting vsftpd.service - vsftpd FTP server...
+Oct 08 16:43:18 debian systemd[1]: Started vsftpd.service - vsftpd FTP server.
+Oct 08 16:43:18 debian sshd[543]: Server listening on 0.0.0.0 port 22.
+Oct 08 16:43:18 debian sshd[543]: Server listening on :: port 22.
+Oct 08 16:43:18 debian systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+Oct 08 16:43:18 debian apachectl[579]: AH00557: apache2: apr_sockaddr_info_get() failed for debian
+Oct 08 16:43:18 debian apachectl[579]: AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+Oct 08 16:43:18 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Oct 08 16:43:20 debian systemd[694]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Oct 08 16:43:20 debian systemd[694]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Oct 08 16:44:04 debian systemd[941]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Oct 08 16:44:04 debian systemd[941]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Oct 08 16:44:24 debian systemd[694]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Oct 08 16:44:24 debian systemd[694]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Oct 08 16:48:02 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Oct 08 16:48:02 debian systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Oct 08 16:48:02 debian systemd[1]: Starting vsftpd.service - vsftpd FTP server...
+Oct 08 16:48:02 debian systemd[1]: Started vsftpd.service - vsftpd FTP server.
+Oct 08 16:48:02 debian sshd[555]: Server listening on 0.0.0.0 port 22.
+Oct 08 16:48:02 debian sshd[555]: Server listening on :: port 22.
+Oct 08 16:48:02 debian systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+Oct 08 16:48:03 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Oct 08 16:48:04 debian systemd[725]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Oct 08 16:48:04 debian systemd[725]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Oct 08 16:48:15 debian systemd[893]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Oct 08 16:48:15 debian systemd[893]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Oct 08 16:48:35 debian systemd[725]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Oct 08 16:48:35 debian systemd[725]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Oct 08 17:28:37 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+Oct 08 17:28:37 debian systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Oct 08 17:28:37 debian systemd[1]: Starting vsftpd.service - vsftpd FTP server...
+Oct 08 17:28:37 debian systemd[1]: Started vsftpd.service - vsftpd FTP server.
+Oct 08 17:28:38 debian sshd[550]: Server listening on 0.0.0.0 port 22.
+Oct 08 17:28:38 debian sshd[550]: Server listening on :: port 22.
+Oct 08 17:28:38 debian systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+Oct 08 17:28:38 debian apachectl[578]: AH00557: apache2: apr_sockaddr_info_get() failed for debian
+Oct 08 17:28:38 debian apachectl[578]: AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+Oct 08 17:28:38 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+Oct 08 17:28:39 debian systemd[725]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Oct 08 17:28:39 debian systemd[725]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Oct 08 17:28:53 debian systemd[915]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Oct 08 17:28:53 debian systemd[915]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Oct 08 17:29:13 debian systemd[725]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Oct 08 17:29:13 debian systemd[725]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Oct 08 17:40:59 debian sshd[1650]: Accepted password for root from 192.168.0.134 port 45623 ssh2
+Oct 08 17:40:59 debian sshd[1650]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Oct 08 17:40:59 debian systemd[1653]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+Oct 08 17:40:59 debian systemd[1653]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Oct 08 17:40:59 debian sshd[1650]: pam_env(sshd:session): deprecated reading of user environment enabled
+May 20 13:22:00 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+May 20 13:22:00 debian systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+May 20 13:22:00 debian systemd[1]: Starting vsftpd.service - vsftpd FTP server...
+May 20 13:22:01 debian systemd[1]: Started vsftpd.service - vsftpd FTP server.
+May 20 13:22:01 debian sshd[590]: Server listening on 0.0.0.0 port 22.
+May 20 13:22:01 debian sshd[590]: Server listening on :: port 22.
+May 20 13:22:01 debian systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+May 20 13:22:01 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+May 20 13:22:02 debian systemd[793]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+May 20 13:22:02 debian systemd[793]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+May 20 13:22:11 debian systemd[1007]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+May 20 13:22:11 debian systemd[1007]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+May 20 13:23:53 debian systemd[793]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+May 20 13:23:53 debian systemd[793]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+May 20 13:35:22 debian sshd[590]: Received signal 15; terminating.
+May 20 13:35:22 debian systemd[1]: Stopping apache2.service - The Apache HTTP Server...
+May 20 13:35:22 debian systemd[1]: Stopping ssh.service - OpenBSD Secure Shell server...
+May 20 13:35:22 debian systemd[1]: Stopping vsftpd.service - vsftpd FTP server...
+May 20 13:35:22 debian systemd[1]: vsftpd.service: Deactivated successfully.
+May 20 13:35:22 debian systemd[1]: Stopped vsftpd.service - vsftpd FTP server.
+May 20 13:35:22 debian systemd[1]: ssh.service: Deactivated successfully.
+May 20 13:35:22 debian systemd[1]: Stopped ssh.service - OpenBSD Secure Shell server.
+May 20 13:35:22 debian systemd[1]: apache2.service: Deactivated successfully.
+May 20 13:35:22 debian systemd[1]: Stopped apache2.service - The Apache HTTP Server.
+May 20 13:35:37 debian systemd[1007]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+May 20 13:35:37 debian systemd[1007]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+May 20 13:35:51 debian systemd[1]: Starting apache2.service - The Apache HTTP Server...
+May 20 13:35:51 debian systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+May 20 13:35:51 debian systemd[1]: Starting vsftpd.service - vsftpd FTP server...
+May 20 13:35:51 debian systemd[1]: Started vsftpd.service - vsftpd FTP server.
+May 20 13:35:51 debian sshd[596]: Server listening on 0.0.0.0 port 22.
+May 20 13:35:51 debian sshd[596]: Server listening on :: port 22.
+May 20 13:35:51 debian systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+May 20 13:35:51 debian systemd[1]: Started apache2.service - The Apache HTTP Server.
+May 20 13:35:53 debian systemd[1461]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+May 20 13:35:53 debian systemd[1461]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+May 20 13:36:08 debian systemd[1630]: Listening on gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+May 20 13:36:08 debian systemd[1630]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+May 20 13:36:28 debian systemd[1461]: Closed gcr-ssh-agent.socket - GCR ssh-agent wrapper.
+May 20 13:36:28 debian systemd[1461]: Closed gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+May 20 13:41:49 debian sudo[2634]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/grep PermitRootLogin /etc/ssh/sshd_config
+May 20 13:43:14 debian sudo[2745]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/cat /etc/ssh/sshd_config
+May 20 13:45:44 debian sudo[3014]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/journalctl -u ssh
+May 20 13:55:25 debian sudo[3841]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/grep -E PermitRootLogin|PasswordAuthentication /etc/ssh/sshd_config
+May 20 14:02:14 debian sudo[3967]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/journalctl -u ssh
+May 20 14:23:01 debian sudo[4962]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/ls -lah /root/.ssh
+May 20 14:23:11 debian sudo[4979]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/cat /root/.ssh/authorized_keys
+May 20 14:34:35 debian sudo[5565]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/grep -R Indexes /etc/apache2
+May 20 16:59:42 debian sudo[6899]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/cat /etc/vsftpd.conf
+May 20 17:13:28 debian sudo[7218]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/cat /etc/vsftpd.conf
+May 20 17:44:18 debian sudo[8208]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/journalctl -u ssh
+May 20 18:24:43 debian sudo[147271]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/grep -E PermitRootLogin|PasswordAuthentication /etc/ssh/sshd_config
+May 20 18:24:43 debian sudo[147275]:   debian : TTY=pts/0 ; PWD=/home/debian ; USER=root ; COMMAND=/usr/bin/journalctl -u ssh
+
+================ WORDPRESS =================
+total 256K
+drwxrwxrwx  5 www-data www-data 4.0K Oct  8  2024 .
+drwxr-xr-x  3 root     root     4.0K Sep 30  2024 ..
+-rwxrwxrwx  1 www-data www-data  523 Sep 30  2024 .htaccess
+-rwxrwxrwx  1 www-data www-data  11K Sep 30  2024 index.html
+-rwxrwxrwx  1 www-data www-data  405 Feb  6  2020 index.php
+-rwxrwxrwx  1 www-data www-data  20K Dec 31  2023 license.txt
+-rwxrwxrwx  1 www-data www-data 7.3K Jun 18  2024 readme.html
+-rwxrwxrwx  1 www-data www-data 7.3K Feb 13  2024 wp-activate.php
+drwxrwxrwx  9 www-data www-data 4.0K Sep 10  2024 wp-admin
+-rwxrwxrwx  1 www-data www-data  351 Feb  6  2020 wp-blog-header.php
+-rwxrwxrwx  1 www-data www-data 2.3K Jun 14  2023 wp-comments-post.php
+-rwxrwxrwx  1 www-data www-data 3.0K Sep 30  2024 wp-config.php
+drwxrwxrwx  5 www-data www-data 4.0K Oct  8  2024 wp-content
+-rwxrwxrwx  1 www-data www-data 5.6K May 30  2023 wp-cron.php
+drwxrwxrwx 30 www-data www-data  12K Sep 10  2024 wp-includes
+-rwxrwxrwx  1 www-data www-data 2.5K Nov 26  2022 wp-links-opml.php
+-rwxrwxrwx  1 www-data www-data 3.9K Mar 11  2024 wp-load.php
+-rwxrwxrwx  1 www-data www-data  51K May 28  2024 wp-login.php
+-rwxrwxrwx  1 www-data www-data 8.4K Sep 16  2023 wp-mail.php
+-rwxrwxrwx  1 www-data www-data  29K Jul  9  2024 wp-settings.php
+-rwxrwxrwx  1 www-data www-data  34K Jun 19  2023 wp-signup.php
+-rwxrwxrwx  1 www-data www-data 4.8K Jun 22  2023 wp-trackback.php
+-rwxrwxrwx  1 www-data www-data 3.2K Mar  2  2024 xmlrpc.php
+
+================ WP-CONFIG =================
+<?php
+/**
+ * The base configuration for WordPress
+ *
+ * The wp-config.php creation script uses this file during the installation.
+ * You don't have to use the website, you can copy this file to "wp-config.php"
+ * and fill in the values.
+ *
+ * This file contains the following configurations:
+ *
+ * * Database settings
+ * * Secret keys
+ * * Database table prefix
+ * * ABSPATH
+ *
+ * @link https://developer.wordpress.org/advanced-administration/wordpress/wp-config/
+ *
+ * @package WordPress
+ */
+
+// ** Database settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'wordpress' );
+
+/** Database username */
+define( 'DB_USER', 'wordpressuser' );
+
+/** Database password */
+define( 'DB_PASSWORD', '123456' );
+
+/** Database hostname */
+define( 'DB_HOST', 'localhost' );
+
+/** Database charset to use in creating database tables. */
+define( 'DB_CHARSET', 'utf8' );
+
+/** The database collate type. Don't change this if in doubt. */
+define( 'DB_COLLATE', '' );
+
+/**#@+
+ * Authentication unique keys and salts.
+ *
+ * Change these to different unique phrases! You can generate these using
+ * the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}.
+ *
+ * You can change these at any point in time to invalidate all existing cookies.
+ * This will force all users to have to log in again.
+ *
+ * @since 2.6.0
+ */
+define( 'AUTH_KEY',         'put your unique phrase here' );
+define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
+define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
+define( 'NONCE_KEY',        'put your unique phrase here' );
+define( 'AUTH_SALT',        'put your unique phrase here' );
+define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
+define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
+define( 'NONCE_SALT',       'put your unique phrase here' );
+
+/**#@-*/
+
+/**
+ * WordPress database table prefix.
+ *
+ * You can have multiple installations in one database if you give each
+ * a unique prefix. Only numbers, letters, and underscores please!
+ */
+$table_prefix = 'wp_';
+
+/**
+ * For developers: WordPress debugging mode.
+ *
+ * Change this to true to enable the display of notices during development.
+ * It is strongly recommended that plugin and theme developers use WP_DEBUG
+ * in their development environments.
+ *
+ * For information on other constants that can be used for debugging,
+ * visit the documentation.
+ *
+ * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
+ */
+define( 'WP_DEBUG', false );
+
+/* Add any custom values between this line and the "stop editing" line. */
+
+
+
+/* That's all, stop editing! Happy publishing. */
+
+/** Absolute path to the WordPress directory. */
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', __DIR__ . '/' );
+}
+
+/** Sets up WordPress vars and included files. */
+require_once ABSPATH . 'wp-settings.php';
+
+================ PERMISOS WP-CONFIG =================
+  File: /var/www/html/wp-config.php
+  Size: 3017      	Blocks: 8          IO Block: 4096   regular file
+Device: 8,1	Inode: 172300      Links: 1
+Access: (0777/-rwxrwxrwx)  Uid: (   33/www-data)   Gid: (   33/www-data)
+Access: 2026-05-20 17:19:57.495142009 -0400
+Modify: 2024-09-30 12:02:41.825525747 -0400
+Change: 2024-10-08 16:20:04.773416906 -0400
+ Birth: 2024-09-30 11:56:21.448640915 -0400
+
+================ FTP ANON =================
+220 (vsFTPd 3.0.3)
+331 Please specify the password.
+230 Login successful.
+221 Goodbye.
+
+================ CRON =================
+-rw-r--r-- 1 root root 1.1K Mar  2  2023 /etc/crontab
+
+/etc/cron.d:
+total 32K
+drwxr-xr-x   2 root root 4.0K Sep 30  2024 .
+drwxr-xr-x 122 root root  12K May 20 18:14 ..
+-rw-r--r--   1 root root  285 Jan 10  2023 anacron
+-rw-r--r--   1 root root  201 Mar  4  2023 e2scrub_all
+-rw-r--r--   1 root root  712 Jul 13  2022 php
+-rw-r--r--   1 root root  102 Mar  2  2023 .placeholder
+
+/etc/cron.daily:
+total 60K
+drwxr-xr-x   2 root root 4.0K May 20 18:03 .
+drwxr-xr-x 122 root root  12K May 20 18:14 ..
+-rwxr-xr-x   1 root root  311 Jan 10  2023 0anacron
+-rwxr-xr-x   1 root root  539 Jul  1  2024 apache2
+-rwxr-xr-x   1 root root 1.5K May 25  2023 apt-compat
+-rwxr-xr-x   1 root root  161 Mar 12  2023 chkrootkit
+-rwxr-xr-x   1 root root  123 Mar 26  2023 dpkg
+-rwxr-xr-x   1 root root 4.7K May 11 01:13 exim4-base
+-rwxr-xr-x   1 root root  377 Dec 14  2022 logrotate
+-rwxr-xr-x   1 root root 1.4K Mar 12  2023 man-db
+-rw-r--r--   1 root root  102 Mar  2  2023 .placeholder
+-rwxr-xr-x   1 root root 1007 Jan 27  2023 rkhunter
+
+/etc/cron.hourly:
+total 20K
+drwxr-xr-x   2 root root 4.0K Jul 31  2024 .
+drwxr-xr-x 122 root root  12K May 20 18:14 ..
+-rw-r--r--   1 root root  102 Mar  2  2023 .placeholder
+
+/etc/cron.monthly:
+total 24K
+drwxr-xr-x   2 root root 4.0K Jul 31  2024 .
+drwxr-xr-x 122 root root  12K May 20 18:14 ..
+-rwxr-xr-x   1 root root  313 Jan 10  2023 0anacron
+-rw-r--r--   1 root root  102 Mar  2  2023 .placeholder
+
+/etc/cron.weekly:
+total 32K
+drwxr-xr-x   2 root root 4.0K May 20 18:03 .
+drwxr-xr-x 122 root root  12K May 20 18:14 ..
+-rwxr-xr-x   1 root root  312 Jan 10  2023 0anacron
+-rwxr-xr-x   1 root root 1.1K Mar 12  2023 man-db
+-rw-r--r--   1 root root  102 Mar  2  2023 .placeholder
+-rwxr-xr-x   1 root root 1.7K Jan 27  2023 rkhunter
+
+/etc/cron.yearly:
+total 20K
+drwxr-xr-x   2 root root 4.0K Jul 31  2024 .
+drwxr-xr-x 122 root root  12K May 20 18:14 ..
+-rw-r--r--   1 root root  102 Mar  2  2023 .placeholder
+
+================ ROOT SSH =================
+total 8.0K
+drwx------ 2 root root 4.0K Jul 31  2024 .
+drwx------ 6 root root 4.0K May 20 17:45 ..
+
+================ HOME DEBIAN =================
+total 160K
+drwx------ 15 debian debian 4.0K May 20 18:15 .
+drwxr-xr-x  3 root   root   4.0K Jul 31  2024 ..
+-rw-------  1 debian debian 3.5K May 20 16:51 .bash_history
+-rw-r--r--  1 debian debian  220 Jul 31  2024 .bash_logout
+-rw-r--r--  1 debian debian 3.5K Jul 31  2024 .bashrc
+drwxr-xr-x 16 debian debian 4.0K May 20 16:37 .cache
+drwxr-xr-x  8 debian debian 4.0K Jul 31  2024 .config
+drwxr-xr-x  2 debian debian 4.0K Jul 31  2024 Desktop
+-rw-r--r--  1 debian debian   35 Jul 31  2024 .dmrc
+drwxr-xr-x  2 debian debian 4.0K Jul 31  2024 Documents
+drwxr-xr-x  2 debian debian 4.0K Sep 28  2024 Downloads
+-rw-r--r--  1 debian debian 5.2K Jul 31  2024 .face
+lrwxrwxrwx  1 debian debian    5 Jul 31  2024 .face.icon -> .face
+drwxr-xr-x  2 debian debian 4.0K May 20 18:24 forense
+-rw-------  1 debian debian   20 May 20 17:22 .lesshst
+drwx------  3 debian debian 4.0K Jul 31  2024 .local
+drwx------  4 debian debian 4.0K Jul 31  2024 .mozilla
+drwxr-xr-x  2 debian debian 4.0K Jul 31  2024 Music
+drwxr-xr-x  2 debian debian 4.0K Jul 31  2024 Pictures
+-rw-r--r--  1 debian debian  807 Jul 31  2024 .profile
+drwxr-xr-x  2 debian debian 4.0K Jul 31  2024 Public
+drwxr-xr-x  2 debian debian 4.0K Jul 31  2024 Templates
+-rw-r--r--  1 debian debian    5 May 20 17:18 test.txt
+-rw-r-----  1 debian debian    5 May 20 13:36 .vboxclient-clipboard-tty7-control.pid
+-rw-r-----  1 debian debian    5 May 20 13:36 .vboxclient-clipboard-tty7-service.pid
+-rw-r-----  1 debian debian    5 May 20 13:36 .vboxclient-draganddrop-tty7-control.pid
+-rw-r-----  1 debian debian    5 May 20 13:36 .vboxclient-draganddrop-tty7-service.pid
+-rw-r-----  1 debian debian    5 May 20 13:36 .vboxclient-hostversion-tty7-control.pid
+-rw-r-----  1 debian debian    5 May 20 13:36 .vboxclient-seamless-tty7-control.pid
+-rw-r-----  1 debian debian    5 May 20 13:36 .vboxclient-seamless-tty7-service.pid
+-rw-r-----  1 debian debian    5 May 20 13:36 .vboxclient-vmsvga-session-tty7-control.pid
+-rw-r-----  1 debian debian    5 May 20 13:36 .vboxclient-vmsvga-session-tty7-service.pid
+drwxr-xr-x  2 debian debian 4.0K Jul 31  2024 Videos
+-rw-------  1 debian debian   51 May 20 13:36 .Xauthority
+-rw-------  1 debian debian  13K May 20 17:22 .xsession-errors
+-rw-------  1 debian debian 6.4K May 20 13:35 .xsession-errors.old
+
+================ ROOTKIT CHECK =================
+ROOTDIR is `/'
+Checking `amd'...                                           not found
+Checking `basename'...                                      not infected
+Checking `biff'...                                          not found
+Checking `chfn'...                                          not infected
+Checking `chsh'...                                          not infected
+Checking `cron'...                                          not infected
+Checking `crontab'...                                       not infected
+Checking `date'...                                          not infected
+Checking `du'...                                            not infected
+Checking `dirname'...                                       not infected
+Checking `echo'...                                          not infected
+Checking `egrep'...                                         not infected
+Checking `env'...                                           not infected
+Checking `find'...                                          not infected
+Checking `fingerd'...                                       not found
+Checking `gpm'...                                           not found
+Checking `grep'...                                          not infected
+Checking `hdparm'...                                        not found
+Checking `su'...                                            not infected
+Checking `ifconfig'...                                      not infected
+Checking `inetd'...                                         not infected
+Checking `inetdconf'...                                     not found
+Checking `identd'...                                        not found
+Checking `init'...                                          not infected
+Checking `killall'...                                       not infected
+Checking `ldsopreload'...                                   not infected
+Checking `login'...                                         not infected
+Checking `ls'...                                            not infected
+Checking `lsof'...                                          not infected
+Checking `mail'...                                          not infected
+Checking `mingetty'...                                      not found
+Checking `netstat'...                                       not infected
+Checking `named'...                                         not found
+Checking `passwd'...                                        not infected
+Checking `pidof'...                                         not infected
+Checking `pop2'...                                          not found
+Checking `pop3'...                                          not found
+Checking `ps'...                                            not infected
+Checking `pstree'...                                        not infected
+Checking `rpcinfo'...                                       not found
+Checking `rlogind'...                                       not found
+Checking `rshd'...                                          not found
+Checking `slogin'...                                        not infected
+Checking `sendmail'...                                      not infected
+Checking `sshd'...                                          not infected
+Checking `syslogd'...                                       not found
+Checking `tar'...                                           not infected
+Checking `tcpd'...                                          not found
+Checking `tcpdump'...                                       not infected
+Checking `top'...                                           not infected
+Checking `telnetd'...                                       not found
+Checking `timed'...                                         not found
+Checking `traceroute'...                                    not infected
+Checking `vdir'...                                          not infected
+Checking `w'...                                             not infected
+Checking `write'...                                         not infected
+Checking `aliens'...                                        started
+Searching for suspicious files in /dev...                   not found
+Searching for known suspicious directories...               not found
+Searching for known suspicious files...                     not found
+Searching for sniffer's logs...                             not found
+Searching for HiDrootkit rootkit...                         not found
+Searching for t0rn rootkit...                               not found
+Searching for t0rn v8 (or variation)...                     not found
+Searching for Lion rootkit...                               not found
+Searching for RSHA rootkit...                               not found
+Searching for RH-Sharpe rootkit...                          not found
+Searching for Ambient (ark) rootkit...                      not found
+Searching for suspicious files and dirs...                  WARNING
+
+WARNING: The following suspicious files and directories were found:
+/usr/lib/ruby/gems/3.1.0/gems/typeprof-0.21.2/vscode/.vscodeignore
+/usr/lib/ruby/gems/3.1.0/gems/typeprof-0.21.2/vscode/.gitignore
+/usr/lib/ruby/gems/3.1.0/gems/typeprof-0.21.2/vscode/.vscode
+/usr/lib/ruby/vendor_ruby/rubygems/ssl_certs/.document
+/usr/lib/ruby/vendor_ruby/rubygems/tsort/.document
+/usr/lib/ruby/vendor_ruby/rubygems/optparse/.document
+/usr/lib/libreoffice/share/.registry
+
+Searching for LPD Worm...                                   not found
+Searching for Ramen Worm rootkit...                         not found
+Searching for Maniac rootkit...                             not found
+Searching for RK17 rootkit...                               not found
+Searching for Ducoci rootkit...                             not found
+Searching for Adore Worm...                                 not found
+Searching for ShitC Worm...                                 not found
+Searching for Omega Worm...                                 not found
+Searching for Sadmind/IIS Worm...                           not found
+Searching for MonKit...                                     not found
+Searching for Showtee rootkit...                            not found
+Searching for OpticKit...                                   not found
+Searching for T.R.K...                                      not found
+Searching for Mithra rootkit...                             not found
+Searching for OBSD rootkit v1...                            not tested
+Searching for LOC rootkit...                                not found
+Searching for Romanian rootkit...                           not found
+Searching for HKRK rootkit...                               not found
+Searching for Suckit rootkit...                             not found
+Searching for Volc rootkit...                               not found
+Searching for Gold2 rootkit...                              not found
+Searching for TC2 rootkit...                                not found
+Searching for Anonoying rootkit...                          not found
+Searching for ZK rootkit...                                 not found
+Searching for ShKit rootkit...                              not found
+Searching for AjaKit rootkit...                             not found
+Searching for zaRwT rootkit...                              not found
+Searching for Madalin rootkit...                            not found
+Searching for Fu rootkit...                                 not found
+Searching for Kenga3 rootkit...                             not found
+Searching for ESRK rootkit...                               not found
+Searching for rootedoor...                                  not found
+Searching for ENYELKM rootkit...                            not found
+Searching for common ssh-scanners...                        not found
+Searching for Linux/Ebury 1.4 - Operation Windigo...        not tested
+Searching for Linux/Ebury 1.6...                            not found
+Searching for 64-bit Linux Rootkit...                       not found
+Searching for 64-bit Linux Rootkit modules...               not found
+Searching for Mumblehard...                                 not found
+Searching for Backdoor.Linux.Mokes.a...                     not found
+Searching for Malicious TinyDNS...                          not found
+Searching for Linux.Xor.DDoS...                             not found
+Searching for Linux.Proxy.1.0...                            not found
+Searching for CrossRAT...                                   not found
+Searching for Hidden Cobra...                               not found
+Searching for Rocke Miner rootkit...                        not found
+Searching for PWNLNX4 lkm rootkit...                        not found
+Searching for PWNLNX6 lkm rootkit...                        not found
+Searching for Umbreon lrk...                                not found
+Searching for Kinsing.a backdoor rootkit...                 not found
+Searching for RotaJakiro backdoor rootkit...                not found
+Searching for Syslogk LKM rootkit...                        not found
+Searching for Kovid LKM rootkit...                          not tested
+Searching for suspect PHP files...                          not found
+Searching for zero-size shell history files...              not found
+Searching for hardlinked shell history files...             not found
+Checking `aliens'...                                        finished
+Checking `asp'...                                           not infected
+Checking `bindshell'...                                     not found
+Checking `lkm'...                                           started
+Searching for Adore LKM...                                  not tested
+Searching for sebek LKM (Adore based)...                    not tested
+Searching for knark LKM rootkit...                          not found
+Searching for for hidden processes with chkproc...          not found
+Searching for for hidden directories using chkdirs...       not found
+Checking `lkm'...                                           finished
+Checking `rexedcs'...                                       not found
+Checking `sniffer'...                                       WARNING
+
+WARNING: Output from ifpromisc:
+lo: not promisc and no packet sniffer sockets
+enp0s3: PACKET SNIFFER(/usr/sbin/NetworkManager[518], /usr/sbin/NetworkManager[518])
+
+Checking `w55808'...                                        not found
+Checking `wted'...                                          not found
+Checking `scalper'...                                       not found
+Checking `slapper'...                                       not found
+Checking `z2'...                                            not found
+Checking `chkutmp'...                                       not found
+Checking `OSX_RSPLUG'...                                    not tested
+
+================ RKHUNTER WARNINGS =================
+    /usr/bin/lwp-request[37C[ [1;31mWarning[0;39m ]
+    Checking for suspicious (large) shared memory segments[3C[ [1;31mWarning[0;39m ]
+    Checking if SSH root access is allowed[19C[ [1;31mWarning[0;39m ]
+
+================ SHARED MEMORY =================
+
+------ Shared Memory Segments --------
+key        shmid      owner      perms      bytes      nattch     status      
+0x00000000 98304      debian     600        67108864   2          dest         
+0x00000000 98308      debian     600        524288     2          dest         
+0x00000000 8          debian     600        524288     2          dest         
+0x00000000 13         debian     600        4194304    2          dest         
+0x00000000 16         debian     600        524288     2          dest         
+0x00000000 19         debian     600        524288     2          dest         
+0x00000000 22         debian     600        524288     2          dest         
+0x00000000 27         debian     600        524288     2          dest         
+0x00000000 28         debian     600        524288     2          dest         
+0x00000000 32         debian     600        16777216   2          dest         
+0x00000000 32802      debian     600        67108864   2          dest         
+0x00000000 42         debian     600        67108864   2          dest         
+0x00000000 65594      debian     600        4194304    2          dest         
+
+
+================ LWP REQUEST =================
+libwww-perl: /usr/bin/lwp-request
+
+================ NMAP BASIC =================
+Starting Nmap 7.93 ( https://nmap.org ) at 2026-05-20 18:26 EDT
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000024s latency).
+Other addresses for localhost (not scanned): ::1
+Not shown: 994 closed tcp ports (conn-refused)
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+25/tcp   open  smtp
+80/tcp   open  http
+631/tcp  open  ipp
+3306/tcp open  mysql
+
+Nmap done: 1 IP address (1 host up) scanned in 0.03 seconds
+
+================ NMAP VULN =================
+Starting Nmap 7.93 ( https://nmap.org ) at 2026-05-20 18:26 EDT
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.0000010s latency).
+Other addresses for localhost (not scanned): ::1
+Not shown: 994 closed tcp ports (reset)
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+25/tcp   open  smtp
+| smtp-vuln-cve2010-4344: 
+|   Exim version: 4.96
+|   Exim heap overflow vulnerability (CVE-2010-4344):
+|     Exim (CVE-2010-4344): NOT VULNERABLE
+|   Exim privileges escalation vulnerability (CVE-2010-4345):
+|     Exim (CVE-2010-4345): NOT VULNERABLE
+|_  To confirm and exploit the vulnerabilities, run with --script-args='smtp-vuln-cve2010-4344.exploit'
+80/tcp   open  http
+|_http-phpself-xss: ERROR: Script execution failed (use -d to debug)
+| http-csrf: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=localhost
+|   Found the following possible CSRF vulnerabilities: 
+|     
+|     Path: http://localhost:80/manual
+|     Form id: wp-block-search__input-2
+|     Form action: http://localhost/
+|     
+|     Path: http://localhost:80/apache2;repeatmerged=0
+|     Form id: wp-block-search__input-2
+|     Form action: http://localhost/
+|     
+|     Path: http://localhost:80/index.php/comments/feed/1quot;https:/en.gravatar.com/&quot;&gt;Gravatar&lt;/a&gt;.]]
+|     Form id: wp-block-search__input-2
+|     Form action: http://localhost/
+|     
+|     Path: http://localhost:80/wp-login.php?redirect_to=http%3A%2F%2Flocalhost%2Fwp-admin%2F&reauth=1
+|     Form id: loginform
+|     Form action: http://localhost/wp-login.php
+|     
+|     Path: http://localhost:80/wp-login.php?action=lostpassword
+|     Form id: lostpasswordform
+|_    Form action: http://localhost/wp-login.php?action=lostpassword
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+| http-enum: 
+|   /wp-login.php: Possible admin folder
+|   /wp-json: Possible admin folder
+|   /robots.txt: Robots file
+|   /readme.html: Wordpress version: 2 
+|   /wp-includes/images/rss.png: Wordpress version 2.2 found.
+|   /wp-includes/js/jquery/suggest.js: Wordpress version 2.5 found.
+|   /wp-includes/images/blank.gif: Wordpress version 2.6 found.
+|   /wp-includes/js/comment-reply.js: Wordpress version 2.7 found.
+|   /wp-login.php: Wordpress login page.
+|   /wp-admin/upgrade.php: Wordpress login page.
+|   /readme.html: Interesting, a readme.
+|_  /0/: Potentially interesting folder
+631/tcp  open  ipp
+| http-slowloris-check: 
+|   VULNERABLE:
+|   Slowloris DOS attack
+|     State: LIKELY VULNERABLE
+|     IDs:  CVE:CVE-2007-6750
+|       Slowloris tries to keep many connections to the target web server open and hold
+|       them open as long as possible.  It accomplishes this by opening connections to
+|       the target web server and sending a partial request. By doing so, it starves
+|       the http server's resources causing Denial Of Service.
+|       
+|     Disclosure date: 2009-09-17
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+|_      http://ha.ckers.org/slowloris/
+|_http-aspnet-debug: ERROR: Script execution failed (use -d to debug)
+3306/tcp open  mysql
+
+Nmap done: 1 IP address (1 host up) scanned in 64.61 seconds
+
+================ FTP ANON NMAP =================
+Starting Nmap 7.93 ( https://nmap.org ) at 2026-05-20 18:27 EDT
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000032s latency).
+Other addresses for localhost (not scanned): ::1
+
+PORT   STATE SERVICE
+21/tcp open  ftp
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.16 seconds
+
+================ SSH AUTH =================
+Starting Nmap 7.93 ( https://nmap.org ) at 2026-05-20 18:27 EDT
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000032s latency).
+Other addresses for localhost (not scanned): ::1
+
+PORT   STATE SERVICE
+22/tcp open  ssh
+| ssh-auth-methods: 
+|   Supported authentication methods: 
+|     publickey
+|_    password
+
+Nmap done: 1 IP address (1 host up) scanned in 0.18 seconds
+
+=================================================
+FIN ANALISIS FORENSE
+=================================================
+Wed May 20 06:27:25 PM EDT 2026
